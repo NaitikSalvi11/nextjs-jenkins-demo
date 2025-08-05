@@ -2,16 +2,12 @@ pipeline {
     agent any
     
     environment {
-        // Define your Docker Hub credentials ID (you'll need to set this up in Jenkins)
-        DOCKER_HUB_CREDENTIALS = 'docker-hub-credentials'
-        // Your Docker Hub username
-        DOCKER_HUB_USERNAME = 'your-dockerhub-username'
-        // Image name
+        // Local Docker image configuration (no registry needed)
         IMAGE_NAME = 'nextjs-app'
         // Image tag (using build number for versioning)
         IMAGE_TAG = "${BUILD_NUMBER}"
-        // Full image name
-        FULL_IMAGE_NAME = "${DOCKER_HUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}"
+        // Local image name (no registry prefix)
+        FULL_IMAGE_NAME = "${IMAGE_NAME}:${IMAGE_TAG}"
     }
     
     stages {
