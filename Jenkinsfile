@@ -21,39 +21,24 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo 'Installing Node.js dependencies...'
-                script {
-                    // Use Node.js Docker image to install dependencies
-                    docker.image('node:18-alpine').inside() {
-                        sh 'npm ci'
-                    }
-                }
+                sh 'npm ci'
             }
         }
         
         stage('Lint') {
             steps {
                 echo 'Running ESLint...'
-                script {
-                    docker.image('node:18-alpine').inside() {
-                        sh 'npm run lint'
-                    }
-                }
+                sh 'npm run lint'
             }
         }
         
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                script {
-                    docker.image('node:18-alpine').inside() {
-                        sh 'npm run test:ci'
-                    }
-                }
+                sh 'npm run test:ci'
             }
             post {
                 always {
-                    // Publish test results (if you have test result files)
-                    // publishTestResults testResultsPattern: 'test-results.xml'
                     echo 'Test stage completed'
                 }
             }
@@ -62,11 +47,7 @@ pipeline {
         stage('Build Application') {
             steps {
                 echo 'Building Next.js application...'
-                script {
-                    docker.image('node:18-alpine').inside() {
-                        sh 'npm run build'
-                    }
-                }
+                sh 'npm run build'
             }
         }
         
@@ -74,24 +55,8 @@ pipeline {
             steps {
                 echo 'Building Docker image...'
                 script {
-                    def image = docker.build("${FULL_IMAGE_NAME}")
+                    sh "docker build -t ${FULL_IMAGE_NAME} ."
                     echo "Built Docker image: ${FULL_IMAGE_NAME}"
-                }
-            }
-        }
-        
-        stage('Push to Registry') {
-            when {
-                branch 'main'
-            }
-            steps {
-                echo 'Pushing Docker image to registry...'
-                script {
-                    docker.withRegistry('https://registry-1.docker.io/v2/', DOCKER_HUB_CREDENTIALS) {
-                        def image = docker.image("${FULL_IMAGE_NAME}")
-                        image.push()
-                        image.push("latest")
-                    }
                 }
             }
         }
