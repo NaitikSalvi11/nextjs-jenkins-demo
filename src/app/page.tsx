@@ -7,6 +7,9 @@ export default function Home() {
         </h1>
         <p className="text-center text-gray-600">
           This application is automatically built, tested, and deployed using Jenkins!
+
+
+          heloo naitik bro 
         </p>
       </div>
     </main>
