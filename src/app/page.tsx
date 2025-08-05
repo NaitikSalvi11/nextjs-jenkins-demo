@@ -16,3 +16,4 @@ export default function Home() {
   )
 }
 // Testing local Jenkins automation - $(date)
+// Testing automation with nextjs-jenkins-demo3 pipeline
