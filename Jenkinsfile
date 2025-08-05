@@ -70,21 +70,21 @@ pipeline {
                 script {
                     // Stop and remove existing container if it exists
                     sh '''
-                        docker stop nextjs-app || true
-                        docker rm nextjs-app || true
+                        docker stop nextjs-app-port60 || true
+                        docker rm nextjs-app-port60 || true
                     '''
                     
-                    // Run the new container
+                    // Run the new container on port 60
                     sh """
                         docker run -d \\
-                            --name nextjs-app \\
+                            --name nextjs-app-port60 \\
                             --restart unless-stopped \\
-                            -p 3000:3000 \\
+                            -p 60:3000 \\
                             ${FULL_IMAGE_NAME}
                     """
                     
                     echo 'Application deployed successfully!'
-                    echo 'Application is running at http://localhost:3000'
+                    echo 'Application is running at http://localhost:60'
                 }
             }
         }
