@@ -21,6 +21,8 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo 'Installing Node.js dependencies...'
+                // Clean up any previous build artifacts
+                sh 'rm -rf .next || true'
                 sh 'npm ci'
             }
         }
