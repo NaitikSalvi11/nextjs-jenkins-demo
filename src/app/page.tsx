@@ -7,9 +7,10 @@ export default function Home() {
         </h1>
         <p className="text-center text-gray-600">
           This application is automatically built, tested, and deployed using Jenkins!
-
-
-          heloo naitik bro 
+          <br /><br />
+          🚀 Auto-deployment test - Build triggered on push to main!
+          <br />
+          Last updated: {new Date().toLocaleString()}
         </p>
       </div>
     </main>
